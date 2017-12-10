@@ -1,0 +1,141 @@
+class program {
+  program() {
+    move()
+    move()
+    end()
+  }
+}
+-----------------------------------
+class program {
+  void funo() {
+    turnleft()
+    turnleft()
+    turnleft()
+  }
+  program() {
+    move()
+    funo()
+    end()
+  }
+}
+-----------------------------------
+class program {
+  void funo() {
+    turnleft()
+    turnleft()
+    turnleft()
+  }
+  void fdos() {
+    move()
+    move()
+    move()
+  }
+  program() {
+    move()
+    funo()
+    move()
+    fdos()
+    end()
+  }
+}
+-----------------------------------
+class program {
+  void funo() {
+    turnleft()
+    turnleft()
+    turnleft()
+  }
+  void fdos() {
+    move()
+    move()
+    move()
+    funo()
+  }
+  program() {
+    move()
+    fdos()
+    move()
+    end()
+  }
+}
+-----------------------------------
+class program {
+  program() {
+    move()
+    if ( front-is-clear ) {
+      move()
+    }
+    end()
+  }
+}
+-----------------------------------
+class program {
+  program() {
+    move()
+    while ( front-is-clear ) {
+      move()
+    }
+    end()
+  }
+}
+-----------------------------------
+class program {
+  program() {
+    move()
+    iterate ( 5 ) {
+      move()
+    }
+    end()
+  }
+}
+-----------------------------------
+class program {
+  program() {
+    move()
+    while ( front-is-clear ) {
+      move()
+      if ( next-to-a-beeper ) {
+        pickBeeper()
+      }
+    }
+    end()
+  }
+}
+-----------------------------------
+class program {
+  program() {
+    move()
+    while ( front-is-clear ) {
+      move()
+      if ( next-to-a-beeper ) {
+        pickBeeper()
+      } else {
+        putBeeper()
+      }
+    }
+    end()
+  }
+}
+-----------------------------------
+class program {
+  program() {
+    move()
+    if ( facing-north ) {
+      turnleft()
+    } else {
+      if ( facing-south ) {
+        turnleft()
+        turnleft()
+      } else {
+        if ( facing-east ) {
+          turnleft()
+          turnleft()
+        } else {
+          move()
+        }
+      }
+    }
+    end()
+  }
+}
+-----------------------------------
