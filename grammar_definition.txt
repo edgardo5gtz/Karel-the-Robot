@@ -1,0 +1,53 @@
+<program> ::= "class" "program" "{" <functions> <main function> "}"
+
+<functions> ::= <function> <functions prima> | lambda
+
+<functions prima> ::= <function> <functions prima> | lambda
+
+<main function> ::= "program" "(" ")" "{" <body> "}"
+
+<function> ::= "void" <name function> "("  ")" "{" <body> "}"
+
+<body> ::= <expression> <body prima>
+
+<body prima> ::= <expression> <body prima> | lambda
+
+<expression> ::= <call function> | <if expression> | <while expression> | <iterate expression>
+
+<call function> ::= <name function> "(" ")"
+
+<name function> ::= <official function> | <customer function>
+
+<if expression> ::= "if" "(" <condition> ")" "{" <body>  "}" <else>
+
+<else> ::= "else" "{" <body> "}"  | lambda
+
+<while> ::= "while" "(" <condition> ")" "{" <body> "}"
+
+<iterate expression> ::= "iterate" "(" <number> ")" "{" <body> "}"
+
+<number> ::= numero natural del 1 al 100
+
+<condition> ::=
+  "front-is-clear" |
+  "left-is-clear" |
+  "right-is-clear" |
+  "front-is-blocked" |
+  "left-is-blocked" |
+  "right-is-blocked" |
+  "next-to-a-beeper" |
+  "not-next to a beeper" |
+  "facing-north" |
+  "facing-south" |
+  "facing-east" |
+  "facing-west" |
+  "not-facing-north" |
+  "not-facing-south" |
+  "not-facing-east" |
+  "not-facing-west" |
+  "any-beepers-in-beeper-bag" |
+  "no-beepers-in-beeper-bag"
+
+<official function> ::= "move" | "turnLeft" | "pickBeeper" | "putBeeper" | "end"
+
+<customer function> ::= 2 <= length <= 11
