@@ -1,0 +1,20 @@
+class program {
+    void funo() {
+        turnleft()
+        turnleft()
+        turnleft()
+    }
+
+    void fdos() {
+        move()
+        move()
+        move()
+        funo()
+    }
+    program() {
+        move()
+        fdos()
+        move()
+        end()
+    }
+}
