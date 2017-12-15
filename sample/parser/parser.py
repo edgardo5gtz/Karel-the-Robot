@@ -1,4 +1,4 @@
-from sample import lexer as lex
+from sample.lexer import lexer as lex
 
 code = ''' class program {
      void funo() {
