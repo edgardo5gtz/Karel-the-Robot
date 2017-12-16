@@ -1,24 +1,6 @@
 from sample.lexer import lexer as lex
 
-code = ''' class program {
-     void funo() {
-       turnleft()
-       turnleft()
-       turnleft()
-     }
-     void fdos() {
-       move()
-       move()
-       move()
-       funo()
-     }
-     program() {
-       move()
-       fdos()
-       move()
-       end()
-     }
-   }
+code = ''' class program {}
    '''
 list_of_tokens = list()
 index = 0
@@ -29,11 +11,25 @@ for token in lex.tokenize(code):
 
 def parse(tokens):
     program(tokens)
+    print("End parsing")
+    return True
 
 
 def program(tokens):
+    global index
     if demand('class'):
-        pass
+        if demand('program'):
+            if demand('LCURL'):
+                functions()
+                main_function()
+                if not demand('RCURL'):
+                    raise RuntimeError('Missing }} in line {}'.format(tokens.pop(index).line))
+            else:
+                raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
+        else:
+            raise RuntimeError('Missing program in line {}'.format(tokens.pop(index).line))
+    else:
+        raise RuntimeError('Missing class in line {}'.format(tokens.pop(index).line))
 
 
 def functions():
@@ -99,7 +95,9 @@ def customer_function():
 def demand(token_type):
     global index
     global list_of_tokens
-    if token_type == list_of_tokens.index(index).get('type'):
+    element = list_of_tokens.pop(index)
+    list_of_tokens.insert(index, element)
+    if token_type == element.type:
         index += 1
         return True
     return False
