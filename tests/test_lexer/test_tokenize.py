@@ -6,7 +6,6 @@ class TestLexer(TestCase):
     def setUp(self):
         self.code_input = open("test_lexer_input.txt", 'r')
         self.assertion_output = open("test_lexer_assertions.txt", 'r')
-        self.lexer_output = open("test_lexer_output.txt", 'w')
 
     def test_tokenize(self):
         list_of_tokens = lex.tokenize(self.code_input.read())
@@ -20,4 +19,3 @@ class TestLexer(TestCase):
     def close_files(self):
         self.code_input.close()
         self.assertion_output.close()
-        self.lexer_output.close()
