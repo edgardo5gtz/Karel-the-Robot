@@ -1,22 +1,21 @@
-from sample.lexer import lexer as lex
+"""
+Author: Edgardo Gutierrez Trujillo
 
-code = ''' class program {}
-   '''
-list_of_tokens = list()
+"""
+
+tokens = list()
 index = 0
 
-for token in lex.tokenize(code):
-    list_of_tokens.append(token)
 
-
-def parse(tokens):
-    program(tokens)
+def parse():
+    program()
     print("End parsing")
     return True
 
 
-def program(tokens):
+def program():
     global index
+    global tokens
     if demand('class'):
         if demand('program'):
             if demand('LCURL'):
@@ -33,7 +32,9 @@ def program(tokens):
 
 
 def functions():
-    pass
+    if verify("void"):
+        function_solo()
+        functions_prima()
 
 
 def functions_prima():
@@ -45,7 +46,24 @@ def main_function():
 
 
 def function_solo():
-    pass
+    global index
+    global tokens
+    if demand('void'):
+        name_function()
+        if demand('LPAREN'):
+            if demand('RPAREN'):
+                if demand('LCURL'):
+                    body()
+                    if not demand('RCURL'):
+                        raise RuntimeError('Missing }} in line {}'.format(tokens.pop(index).line))
+                else:
+                    raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
+            else:
+                raise RuntimeError('Missing ) in line {}'.format(tokens.pop(index).line))
+        else:
+            raise RuntimeError('Missing ( in line {}'.format(tokens.pop(index).line))
+    else:
+        raise RuntimeError('Missing void in line {}'.format(tokens.pop(index).line))
 
 
 def body():
@@ -94,9 +112,9 @@ def customer_function():
 
 def demand(token_type):
     global index
-    global list_of_tokens
-    element = list_of_tokens.pop(index)
-    list_of_tokens.insert(index, element)
+    global tokens
+    element = tokens.pop(index)
+    tokens.insert(index, element)
     if token_type == element.type:
         index += 1
         return True
@@ -104,5 +122,12 @@ def demand(token_type):
 
 
 def verify(token_type):
-    global list_of_tokens
-    return True if token_type == list_of_tokens.index(index).get('type') else False
+    global tokens
+    global index
+    element = tokens.pop(index)
+    tokens.insert(index, element)
+    return True if token_type == element.type else False
+
+
+if __name__ == '__main__':
+    pass
