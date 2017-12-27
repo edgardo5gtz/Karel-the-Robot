@@ -10,7 +10,6 @@ index = 0
 def parse():
     program()
     print("End parsing")
-    return True
 
 
 def program():
@@ -22,7 +21,7 @@ def program():
                 functions()
                 main_function()
                 if not demand('RCURL'):
-                    raise RuntimeError('Missing }} in line {}'.format(tokens.pop(index).line))
+                    raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index - 1).line))
             else:
                 raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
         else:
@@ -55,7 +54,7 @@ def function_solo():
                 if demand('LCURL'):
                     body()
                     if not demand('RCURL'):
-                        raise RuntimeError('Missing }} in line {}'.format(tokens.pop(index).line))
+                        raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index-1).line))
                 else:
                     raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
             else:
@@ -113,7 +112,10 @@ def customer_function():
 def demand(token_type):
     global index
     global tokens
-    element = tokens.pop(index)
+    try:
+        element = tokens.pop(index)
+    except IndexError:
+        return False
     tokens.insert(index, element)
     if token_type == element.type:
         index += 1
@@ -124,7 +126,10 @@ def demand(token_type):
 def verify(token_type):
     global tokens
     global index
-    element = tokens.pop(index)
+    try:
+        element = tokens.pop(index)
+    except IndexError:
+        return False
     tokens.insert(index, element)
     return True if token_type == element.type else False
 
