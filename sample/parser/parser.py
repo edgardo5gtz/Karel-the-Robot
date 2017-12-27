@@ -21,7 +21,7 @@ def program():
                 functions()
                 main_function()
                 if not demand('RCURL'):
-                    raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index - 1).line))
+                    raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index).line))
             else:
                 raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
         else:
@@ -82,7 +82,10 @@ def call_function():
 
 
 def name_function():
-    pass
+    if demand('ID'):
+        pass
+    else:
+        raise RuntimeError("Missing the function name in line".format(tokens.pop(index).line))
 
 
 def if_expression():
@@ -115,6 +118,7 @@ def demand(token_type):
     try:
         element = tokens.pop(index)
     except IndexError:
+        index -= 1
         return False
     tokens.insert(index, element)
     if token_type == element.type:
@@ -129,6 +133,7 @@ def verify(token_type):
     try:
         element = tokens.pop(index)
     except IndexError:
+        index -= 1
         return False
     tokens.insert(index, element)
     return True if token_type == element.type else False
