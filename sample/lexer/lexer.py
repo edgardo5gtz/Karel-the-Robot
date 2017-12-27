@@ -1,7 +1,7 @@
-# Tokenizer example from https://docs.python.org/3/library/re.html
-#
-# Adapted for Karel Grammar by Edgardo Gutierrez Trujillo
-#
+"""
+Tokenizer example from https://docs.python.org/3/library/re.html
+Adapted for Karel Grammar by Edgardo Gutierrez Trujillo
+"""
 
 import collections
 import re
