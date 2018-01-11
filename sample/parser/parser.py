@@ -172,7 +172,26 @@ def while_expression():
 
 
 def iterate_expression():
-    pass
+    global index
+    global tokens
+    if demand('iterate'):
+        if demand('LPAREN'):
+            if demand('NUMBER'):
+                if demand('RPAREN'):
+                    if demand('LCURL'):
+                        body()
+                        if not demand('RCURL'):
+                            raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index - 1).line))
+                    else:
+                        raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
+                else:
+                    raise RuntimeError('Missing ) in line {}'.format(tokens.pop(index).line))
+            else:
+                raise RuntimeError('Missing or incorrect condition in line {}'.format(tokens.pop(index).line))
+        else:
+            raise RuntimeError('Missing ( in line {}'.format(tokens.pop(index).line))
+    else:
+        raise RuntimeError('Missing while in line {}'.format(tokens.pop(index).line))
 
 
 def official_function():
