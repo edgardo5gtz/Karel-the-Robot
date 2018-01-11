@@ -134,10 +134,18 @@ def if_expression():
         raise RuntimeError('Missing program in line {}'.format(tokens.pop(index).line))
 
 
-
 def else_expression():
     global index
     global tokens
+    if demand('else'):
+        if demand('LCURL'):
+            body()
+            if not demand('RCURL'):
+                raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index).line))
+        else:
+            raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
+    else:
+        raise RuntimeError('Missing program in line {}'.format(tokens.pop(index).line))
 
 
 def while_expression():
