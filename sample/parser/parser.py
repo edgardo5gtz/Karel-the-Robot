@@ -131,7 +131,7 @@ def if_expression():
         else:
             raise RuntimeError('Missing ( in line {}'.format(tokens.pop(index).line))
     else:
-        raise RuntimeError('Missing program in line {}'.format(tokens.pop(index).line))
+        raise RuntimeError('Missing if in line {}'.format(tokens.pop(index).line))
 
 
 def else_expression():
@@ -145,11 +145,30 @@ def else_expression():
         else:
             raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
     else:
-        raise RuntimeError('Missing program in line {}'.format(tokens.pop(index).line))
+        raise RuntimeError('Missing else in line {}'.format(tokens.pop(index).line))
 
 
 def while_expression():
-    pass
+    global index
+    global tokens
+    if demand('while'):
+        if demand('LPAREN'):
+            if demand('CONDITION'):
+                if demand('RPAREN'):
+                    if demand('LCURL'):
+                        body()
+                        if not demand('RCURL'):
+                            raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index - 1).line))
+                    else:
+                        raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
+                else:
+                    raise RuntimeError('Missing ) in line {}'.format(tokens.pop(index).line))
+            else:
+                raise RuntimeError('Missing or incorrect condition in line {}'.format(tokens.pop(index).line))
+        else:
+            raise RuntimeError('Missing ( in line {}'.format(tokens.pop(index).line))
+    else:
+        raise RuntimeError('Missing while in line {}'.format(tokens.pop(index).line))
 
 
 def iterate_expression():
