@@ -33,15 +33,27 @@ def program():
 def functions():
     if verify("void"):
         function_solo()
-        functions_prima()
-
-
-def functions_prima():
-    pass
+        functions()
 
 
 def main_function():
-    pass
+    global index
+    global tokens
+    if demand('program'):
+        if demand('LPAREN'):
+            if demand('RPAREN'):
+                if demand('LCURL'):
+                    body()
+                    if not demand('RCURL'):
+                        raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index - 1).line))
+                else:
+                    raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
+            else:
+                raise RuntimeError('Missing ) in line {}'.format(tokens.pop(index).line))
+        else:
+            raise RuntimeError('Missing ( in line {}'.format(tokens.pop(index).line))
+    else:
+        raise RuntimeError('Missing program in line {}'.format(tokens.pop(index).line))
 
 
 def function_solo():
@@ -117,7 +129,7 @@ def demand(token_type):
     global tokens
     try:
         element = tokens.pop(index)
-    except IndexError:
+    except IndexError:       # If the last token of any definition is not written
         index -= 1
         return False
     tokens.insert(index, element)
@@ -132,7 +144,7 @@ def verify(token_type):
     global index
     try:
         element = tokens.pop(index)
-    except IndexError:
+    except IndexError:      # If the last token of any definition is not written
         index -= 1
         return False
     tokens.insert(index, element)
