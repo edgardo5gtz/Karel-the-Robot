@@ -90,10 +90,19 @@ def expression():
 
 
 def call_function():
-    pass
+    global index
+    global tokens
+    name_function()
+    if demand('LPAREN'):
+        if not demand('RPAREN'):
+            raise RuntimeError('Missing ( after line {}'.format(tokens.pop(index-1).line))
+    else:
+        raise RuntimeError('Missing ) after line {}'.format(tokens.pop(index - 1).line))
 
 
 def name_function():
+    global index
+    global tokens
     if verify('ID'):
         customer_function()
     elif verify('INSTRUCTION'):
@@ -103,11 +112,32 @@ def name_function():
 
 
 def if_expression():
-    pass
+    global index
+    global tokens
+    if demand('if'):
+        if demand('LPAREN'):
+            if demand('CONDITION'):
+                if demand('RPAREN'):
+                    if demand('LCURL'):
+                        body()
+                        if not demand('RCURL'):
+                            raise RuntimeError('Missing }} after line {}'.format(tokens.pop(index - 1).line))
+                    else:
+                        raise RuntimeError('Missing {{ in line {}'.format(tokens.pop(index).line))
+                else:
+                    raise RuntimeError('Missing ) in line {}'.format(tokens.pop(index).line))
+            else:
+                raise RuntimeError('Missing or incorrect condition in line {}'.format(tokens.pop(index).line))
+        else:
+            raise RuntimeError('Missing ( in line {}'.format(tokens.pop(index).line))
+    else:
+        raise RuntimeError('Missing program in line {}'.format(tokens.pop(index).line))
+
 
 
 def else_expression():
-    pass
+    global index
+    global tokens
 
 
 def while_expression():
