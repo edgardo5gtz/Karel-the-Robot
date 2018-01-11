@@ -81,7 +81,7 @@ def body():
     pass
 
 
-def body_prime():
+def body_prima():
     pass
 
 
@@ -94,10 +94,12 @@ def call_function():
 
 
 def name_function():
-    if demand('ID'):
-        pass
+    if verify('ID'):
+        customer_function()
+    elif verify('INSTRUCTION'):
+        official_function()
     else:
-        raise RuntimeError("Missing the function name in line".format(tokens.pop(index).line))
+        raise RuntimeError('Missing name function after line {}'.format(tokens.pop(index-1).line))
 
 
 def if_expression():
@@ -117,11 +119,13 @@ def iterate_expression():
 
 
 def official_function():
-    pass
+    if not demand("INSTRUCTION"):
+        raise RuntimeError('Missing official function after line {}'.format(tokens.pop(index-1).line))
 
 
 def customer_function():
-    pass
+    if not demand("ID"):
+        raise RuntimeError('Missing customer function after line {}'.format(tokens.pop(index-1).line))
 
 
 def demand(token_type):
