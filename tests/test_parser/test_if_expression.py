@@ -7,11 +7,11 @@ class TestIfExpression(TestCase):
     def setUp(self):
         self.assert_successful_parsing = "if( no-beepers-in-beeper-bag ) {}"
         self.assert_raise_program_except = "( no-beepers-in-beeper-bag ) {}"
-        self.assert_raise_lparent_except = "program no-beepers-in-beeper-bag ) {}"
-        self.assert_raise_rparent_except = "program( no-beepers-in-beeper-bag {}"
-        self.assert_raise_lcurl_except = "program( no-beepers-in-beeper-bag ) }"
-        self.assert_raise_rcurl_except = "program( no-beepers-in-beeper-bag ) {"
-        self.assert_raise_no_condition_except = "if( ) {}"
+        self.assert_raise_lparent_except = "if no-beepers-in-beeper-bag ) {}"
+        self.assert_raise_rparent_except = "if ( no-beepers-in-beeper-bag {}"
+        self.assert_raise_lcurl_except = "if ( no-beepers-in-beeper-bag ) }"
+        self.assert_raise_rcurl_except = "if ( no-beepers-in-beeper-bag ) {"
+        self.assert_raise_no_condition_except = "if ( ) {}"
         self.assert_raise_incorrect_condition_except = "if( no-beepers-in-beeper-ba ) {}"
 
     def test_if_expression_successful_parsing(self):
