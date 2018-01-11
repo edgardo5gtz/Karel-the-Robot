@@ -78,15 +78,21 @@ def function_solo():
 
 
 def body():
-    pass
-
-
-def body_prima():
-    pass
+    if expression():
+        body()
 
 
 def expression():
-    pass
+    if verify('if'):
+        if_expression()
+    elif verify('while'):
+        while_expression()
+    elif verify('iterate'):
+        iterate_expression()
+    elif verify('ID') or verify('CONDITION'):
+        call_function()
+    else:
+        return False
 
 
 def call_function():
